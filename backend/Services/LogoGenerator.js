@@ -57,17 +57,16 @@ Task: Design a 3D vector logo based ONLY on the provided variables.
 ### 1. THE SYMBOL
 - **Subject**: Create ONE singular 3D icon. Design instructions: "${logoConcept || businessDescription}".
 - **Instruction**: Do not use abstract shapes. The icon must be a recognizable, literal object from the business field.
-- **Style**: Bold, clean geometric 3D shapes. Position clearly ABOVE the text.
+- **Style**: Bold, clean geometric 3D shapes.
 
 ### 2. COLOR LOCK (NO DEVIATION)
 - **Palette**: Use ONLY these HEX codes: ${colorsList}.
 - **Strict Prohibition**: Absolutely NO other colors allowed. No pink, blue, or yellow unless in the list.
 - **Lighting**: Neutral white studio light only. Prohibit environmental reflections that alter the original HEX shades.
 
-### 3. TEXT & LAYOUT
-- **Text**: Render ONLY "${businessName}" accurately.
-- **Count**: Render the text ONCE. No duplication, no shadows that create new colors.
-- **Typography**: Clean typeface aligned with "${essence}".
+### 3. STRICTLY NO TEXT
+- **Prohibition**: ABSOLUTELY NO letters, NO text, NO words, and NO monograms in the image.
+- **Focus**: The image must be a pure icon/symbol only.
 
 ### 4. OUTPUT SPECS
 - **Background**: STARK PURE WHITE (#FFFFFF) only.
