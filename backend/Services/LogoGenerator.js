@@ -54,7 +54,7 @@ const prompt = `
 Task: Design a 3D vector logo based ONLY on the provided variables.
 
 ### 1. THE SYMBOL
-- **Subject**: Create ONE singular 3D icon representing "${businessDescription}".
+- **Subject**: Create ONE singular 3D icon. Design instructions: "${extendedStyle}".
 - **Instruction**: Do not use abstract shapes. The icon must be a recognizable, literal object from the business field.
 - **Style**: Bold, clean geometric 3D shapes. Position clearly ABOVE the text.
 

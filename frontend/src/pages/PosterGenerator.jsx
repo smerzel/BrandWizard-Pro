@@ -188,6 +188,7 @@ export default function PosterGenerator() {
                         <img
                           src={`data:image/png;base64,${logo}`}
                           className="w-20 h-20 object-contain"
+                          alt="לוגו עסק"
                         />
                       </div>
                     )}
