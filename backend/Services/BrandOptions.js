@@ -113,11 +113,11 @@ RULE 3: TWO-SYLLABLE PUNCH
 - Format: [Product DNA Word] + [Simple Quality Word] (e.g., "SilkArt", "BakePro", "LensGold").
 
 # PART 2: THE PRODUCT-DRIVEN VISUAL BRIEF
-In 'extended_designer_style', you must provide a **6-8 sentence prompt** that anchors the logo in the product's physical reality.
-- **Focus:** Describe the microscopic textures and specific shapes of the product (e.g., "the interlocking pattern of rug fibers", "the golden crystalline structure of sea salt on grilled meat").
-- **Lighting:** Use professional studio lighting (Soft-box, Rembrandt lighting) to highlight materials.
-- **Camera:** Use Macro or Close-up angles to show craftsmanship.
-- **STRICTLY FORBIDDEN:** Absolutely no icons of houses, general buildings, or generic human silhouettes. Focus 100% on the product itself.
+In 'extended_designer_style', you must provide a **4-6 sentence prompt** describing an immersive background scene, environment, or atmospheric layout for the business.
+- **Focus:** Create a wide, atmospheric scene that feels like a premium advertising background. Describe the environment where the product lives or is used (e.g., "A sleek, modern server room with blue neon lights", "A rustic wooden table in a busy French bakery").
+- **Rule:** DO NOT describe a single isolated object in the center. Describe the surroundings, the mood, and the space. Leave negative space in the center for a logo.
+- **Lighting:** Cinematic, atmospheric lighting.
+- **Camera:** Wide angle or environmental photography. No macro shots of single objects.
 - **Logo Concept:** You must also provide 'logo_concept', which is a SINGLE short sentence describing a clean, literal 3D object for the logo (e.g., "A clean minimalist 3D burger icon").
 
 # Output Format (JSON):
