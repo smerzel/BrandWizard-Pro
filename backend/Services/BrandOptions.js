@@ -118,6 +118,7 @@ In 'extended_designer_style', you must provide a **6-8 sentence prompt** that an
 - **Lighting:** Use professional studio lighting (Soft-box, Rembrandt lighting) to highlight materials.
 - **Camera:** Use Macro or Close-up angles to show craftsmanship.
 - **STRICTLY FORBIDDEN:** Absolutely no icons of houses, general buildings, or generic human silhouettes. Focus 100% on the product itself.
+- **Logo Concept:** You must also provide 'logo_concept', which is a SINGLE short sentence describing a clean, literal 3D object for the logo (e.g., "A clean minimalist 3D burger icon").
 
 # Output Format (JSON):
 Return ONLY a strictly valid JSON. 
@@ -138,10 +139,11 @@ NOTE: 'strategy', 'reasoning', 'tagline' -> MUST BE IN HEBREW.
       "tagline": "סלוגן קצר שמסביר בדיוק מה זה (בעברית)",
       "color_palette": ["#HEX1", "#HEX2", "#HEX3"],
       "design_reasoning": "הסבר למה השם הזה והאלמנטים הוויזואליים שנבחרו הופכים את העסק למזוהה מיידית (בעברית).",
+      "logo_concept": "ENGLISH ONLY: 1 short sentence describing a simple, recognizable 3D object for the logo (e.g., 'A modern 3D burger icon').",
       "extended_designer_style": "ENGLISH ONLY: A hyper-detailed 6-8 sentence prompt. Focus exclusively on the material textures, microscopic details, and physical attributes of the product. NO GENERIC ICONS, HOUSES, OR BUILDINGS."
     },
-    { "style_id": 2, "style_name": "...", "brand_name_english": "...", "extended_designer_style": "..." },
-    { "style_id": 3, "style_name": "...", "brand_name_english": "...", "extended_designer_style": "..." }
+    { "style_id": 2, "style_name": "...", "brand_name_english": "...", "logo_concept": "...", "extended_designer_style": "..." },
+    { "style_id": 3, "style_name": "...", "brand_name_english": "...", "logo_concept": "...", "extended_designer_style": "..." }
   ]
 }
 `.trim();

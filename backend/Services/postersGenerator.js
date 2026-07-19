@@ -223,10 +223,8 @@ const styles = [
   Composition: Artistic depth of field with beautiful bokeh, focuses on the high-quality essence using ${colorsText} color grading.`
 ];
 
-    const results = [];
-    for (let index = 0; index < styles.length; index++) {
+    const promises = styles.map(async (prompt, index) => {
       try {
-        const prompt = styles[index];
         const encoded = encodeURIComponent(prompt);
         const url = `https://image.pollinations.ai/prompt/${encoded}?width=768&height=1024&nologo=true&seed=${Math.floor(Math.random() * 1000000)}&model=flux-realism`;
 
@@ -235,16 +233,18 @@ const styles = [
         
         const buffer = await response.arrayBuffer();
         
-        results.push({
+        return {
           id: index + 1,
           imageBase64: Buffer.from(buffer).toString("base64")
-        });
+        };
       } catch (err) {
         console.error(`Poster ${index + 1} failed:`, err.message);
+        return null;
       }
-    }
+    });
 
-    return results;
+    const results = await Promise.all(promises);
+    return results.filter(res => res !== null);
   } catch (error) {
     console.error("🔥 Global Creative Director Error:", error.message);
     throw error;

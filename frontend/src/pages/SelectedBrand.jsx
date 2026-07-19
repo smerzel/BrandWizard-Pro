@@ -479,6 +479,7 @@ export default function SelectedBrand() {
       essence: selectedConcept.style_name,
       tagline: selectedConcept.tagline,
       extendedStyle: selectedConcept.extended_designer_style,
+      logoConcept: selectedConcept.logo_concept,
       colors: selectedConcept.color_palette
     };
 
