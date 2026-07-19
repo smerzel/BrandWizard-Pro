@@ -223,9 +223,14 @@ const styles = [
   Composition: Artistic depth of field with beautiful bokeh, focuses on the high-quality essence using ${colorsText} color grading.`
 ];
 
-    const promises = styles.map(async (prompt, index) => {
+    const results = [];
+    const stylesToGenerate = styles.slice(0, 2); // נייצר 2 פוסטרים
+
+    for (let index = 0; index < stylesToGenerate.length; index++) {
       try {
+        const prompt = stylesToGenerate[index];
         const encoded = encodeURIComponent(prompt);
+        // משתמשים ב-seed אקראי לחלוטין כדי להבטיח שהתמונות יהיו שונות
         const url = `https://image.pollinations.ai/prompt/${encoded}?width=768&height=1024&nologo=true&seed=${Math.floor(Math.random() * 1000000)}&model=flux-realism`;
 
         const response = await fetch(url);
@@ -233,18 +238,16 @@ const styles = [
         
         const buffer = await response.arrayBuffer();
         
-        return {
+        results.push({
           id: index + 1,
           imageBase64: Buffer.from(buffer).toString("base64")
-        };
+        });
       } catch (err) {
         console.error(`Poster ${index + 1} failed:`, err.message);
-        return null;
       }
-    });
+    }
 
-    const results = await Promise.all(promises);
-    return results.filter(res => res !== null);
+    return results;
   } catch (error) {
     console.error("🔥 Global Creative Director Error:", error.message);
     throw error;
