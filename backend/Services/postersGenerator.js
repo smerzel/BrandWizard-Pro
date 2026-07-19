@@ -204,6 +204,7 @@ Style: ${visualStyle}, ${extendedStyle}.
 Color Palette: ${colorsText}. 
 Mood: Professional, premium, and clean. 
 Technical: 8k resolution, photorealistic, cinematic lighting, sharp focus. 
+Important: This is a background atmosphere image. Do NOT draw a single isolated object in the center like a logo. Create a full scene or environment with negative space. 
 Strictly NO text, NO logos, NO letters, and NO people.`.trim();
 
 const styles = [
