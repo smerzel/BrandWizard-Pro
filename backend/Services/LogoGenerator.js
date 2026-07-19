@@ -88,18 +88,33 @@ Task: Design a 3D vector logo based ONLY on the provided variables.
 
     console.log(`🎨 Fetching 3D Vector Logo for: ${businessName} with colors: ${colorsList}`);
 
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0'
+    let attempt = 0;
+    const maxAttempts = 3;
+
+    while (attempt < maxAttempts) {
+      try {
+        const response = await fetch(url, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`Image API Error: ${response.status}`);
+        }
+
+        const arrayBuffer = await response.arrayBuffer();
+        return Buffer.from(arrayBuffer).toString('base64');
+      } catch (err) {
+        attempt++;
+        console.warn(`🎨 Logo fetch attempt ${attempt} failed:`, err.message);
+        if (attempt >= maxAttempts) {
+          throw err;
+        }
+        // Wait 1 second before retrying
+        await new Promise(resolve => setTimeout(resolve, 1000));
       }
-    });
-
-    if (!response.ok) {
-      throw new Error(`Image API Error: ${response.status}`);
     }
-
-    const arrayBuffer = await response.arrayBuffer();
-    return Buffer.from(arrayBuffer).toString('base64');
 
   } catch (error) {
     console.error("🔥 Image Fetch Error:", error.message);

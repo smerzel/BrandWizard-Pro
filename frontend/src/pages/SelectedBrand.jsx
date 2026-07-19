@@ -459,6 +459,7 @@ export default function SelectedBrand() {
 
   const [logo, setLogo] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const hasGenerated = useRef(false);
 
   useEffect(() => {
@@ -485,6 +486,7 @@ export default function SelectedBrand() {
 
     try {
       setLoading(true);
+      setError(false);
       const res = await fetch((process.env.REACT_APP_API_URL || "http://127.0.0.1:5000") + "/api/generate-logo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -497,6 +499,7 @@ export default function SelectedBrand() {
       setLogo(data.imageUrl);
     } catch (err) {
       console.error("Error generating logo", err);
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -511,6 +514,7 @@ export default function SelectedBrand() {
 
   const handleRetry = () => {
     setLogo(null);
+    setError(false);
     hasGenerated.current = false;
     generateLogo();
   };
@@ -557,6 +561,15 @@ const getPayload = () => ({
             <div className="aspect-square rounded-2xl border bg-slate-50 flex items-center justify-center overflow-hidden mb-8 shadow-inner relative">
               {logo ? (
                 <img src={`data:image/png;base64,${logo}`} alt="Logo" className="w-full h-full object-contain p-8" />
+              ) : error ? (
+                <div className="flex flex-col items-center justify-center text-center p-6">
+                  <span className="text-4xl mb-4">🔌</span>
+                  <span className="text-slate-700 font-semibold mb-2">אופס! שרת ה-AI עמוס כרגע</span>
+                  <span className="text-slate-500 text-sm mb-4">יצירת לוגואים דורשת משאבים רבים, והשרת החינמי קצת עמוס.</span>
+                  <button onClick={handleRetry} className="py-2 px-6 bg-slate-800 text-white rounded-full font-medium hover:bg-slate-700 transition-colors">
+                    לנסות שוב
+                  </button>
+                </div>
               ) : (
                 <span className="text-slate-400">התמונה בטעינה...</span>
               )}
