@@ -26,7 +26,7 @@ export default function BrandOptions() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/branding", {
+      const response = await fetch((process.env.REACT_APP_API_URL || "http://127.0.0.1:5000") + "/api/branding", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
 

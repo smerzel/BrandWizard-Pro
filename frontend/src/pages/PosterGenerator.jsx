@@ -27,7 +27,7 @@ export default function PosterGenerator() {
     setSelectedPosterId(null);
 
     try {
-      const res = await fetch("http://localhost:5000/api/posters", {
+      const res = await fetch((process.env.REACT_APP_API_URL || "http://127.0.0.1:5000") + "/api/posters", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(brandingData),
@@ -146,7 +146,7 @@ export default function PosterGenerator() {
                 ? "טוען פוסטרים…"
                 : posters.length
                 ? "המשך לדף הנחיתה"
-                : "בחר פוסטר כדי להמשיך"}
+                : "יש ליצור פוסטרים תחילה"}
             </button>
           </div>
 
