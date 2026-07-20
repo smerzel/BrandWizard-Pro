@@ -208,21 +208,21 @@ Important: This is a background atmosphere image. Do NOT draw a single isolated 
 Strictly NO text, NO logos, NO letters, and NO people.`.trim();
 
 const styles = [
-  // פוסטר 1: מינימליסטי עם מוצר
+  // פוסטר 1: תקריב מאקרו אבסטרקטי / סטודיו
   `${baseVisualRules}
-  POSTER DIRECTION: "CLEAN PRODUCT HERO" — Minimalist studio shot.
-  Concept: Carefully arranged, perfectly lit hero-shot of the key objects or tools that represent ${businessDescription}. 
-  Composition: Central subject(s) on a pure ${colorsText}-tinted gradient background. Flat lay or slight 3/4 angle. Generous negative space around subject for text overlay. No distractions.
-  Lighting: Soft, diffused studio lighting. No harsh shadows. Product photography quality.
-  Mood: Premium, trustworthy, clean. Like an Apple product launch image.`,
+  POSTER 1 DIRECTION: "MACRO STUDIO MINIMALISM".
+  Concept: Extreme close-up (macro photography) of a single iconic tool, material, or object representing ${businessDescription}.
+  Composition: The object is isolated on a clean, solid ${colorsText} studio backdrop. No environment, no background clutter, no rooms. Pure minimalism.
+  Lighting: High-end studio rim lighting.
+  Mood: Abstract, premium, hyper-focused.`,
 
-  // פוסטר 2: דרמטי ואטמוספרי
+  // פוסטר 2: סצנה רחבה עם אינטראקציה או תנועה
   `${baseVisualRules}
-  POSTER DIRECTION: "DRAMATIC LIFESTYLE ATMOSPHERE" — Cinematic wide shot.
-  Concept: A wide environmental scene showing the world where ${businessDescription} operates. Not the product itself, but the feeling around it — the environment, the people who aren't shown, the story.
-  Composition: Wide or panoramic format. Rule of thirds. Deep perspective with strong foreground and background layers.
-  Lighting: Golden hour or dramatic side-lighting. Rich shadows and highlights creating depth and emotion.
-  Mood: Aspirational, emotional, cinematic. Like a high-end brand campaign billboard.`
+  POSTER 2 DIRECTION: "WIDE CINEMATIC LIFESTYLE".
+  Concept: A wide-angle, bustling environment or architectural space related to ${businessDescription}. 
+  Composition: Show the whole room or landscape. Deep perspective. Use ${colorsText} as subtle accent lights or interior design elements, not solid backgrounds.
+  Lighting: Natural sunlight streaming in, dynamic shadows.
+  Mood: Alive, energetic, immersive.`
 ];
 
     const results = [];

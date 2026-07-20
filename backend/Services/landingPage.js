@@ -124,9 +124,18 @@ Rules:
       contents: [{ role: "user", parts: [{ text: prompt }] }],
     });
 
-    const rawText = response.text;
-    const cleanedJson = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
-    return JSON.parse(cleanedJson);
+    const rawText = response.text || "";
+    
+    // ניקוי עמוק ובטוח של ה-JSON (למקרה ש-Gemini הוסיף טקסט מקדים)
+    const firstBracket = rawText.indexOf('{');
+    const lastBracket = rawText.lastIndexOf('}');
+    
+    if (firstBracket === -1 || lastBracket === -1) {
+      throw new Error("Invalid JSON format from AI");
+    }
+    
+    const cleanJson = rawText.substring(firstBracket, lastBracket + 1);
+    return JSON.parse(cleanJson);
   } catch (error) {
     console.error("AI Error:", error);
     throw new Error("Failed to generate landing page content");

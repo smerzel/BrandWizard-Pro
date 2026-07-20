@@ -262,6 +262,11 @@ export default function LandingBuilder() {
         }),
       });
 
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || "שגיאה בשרת");
+      }
+
       const aiData = await res.json();
 
       navigate("/landing-preview", {
