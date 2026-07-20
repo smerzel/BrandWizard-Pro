@@ -208,20 +208,21 @@ Important: This is a background atmosphere image. Do NOT draw a single isolated 
 Strictly NO text, NO logos, NO letters, and NO people.`.trim();
 
 const styles = [
-  // אפשרות 1: ה"גיבור" - מיקוד באובייקטים המוחשיים של העסק
-  `${baseVisualRules} 
-  Concept: A hero-shot of professional premium tools and objects representing the daily work of ${businessDescription}. 
-  Composition: Central focus on high-quality items, minimalist background with ${colorsText} accents, plenty of negative space for future text overlays.`,
+  // פוסטר 1: מינימליסטי עם מוצר
+  `${baseVisualRules}
+  POSTER DIRECTION: "CLEAN PRODUCT HERO" — Minimalist studio shot.
+  Concept: Carefully arranged, perfectly lit hero-shot of the key objects or tools that represent ${businessDescription}. 
+  Composition: Central subject(s) on a pure ${colorsText}-tinted gradient background. Flat lay or slight 3/4 angle. Generous negative space around subject for text overlay. No distractions.
+  Lighting: Soft, diffused studio lighting. No harsh shadows. Product photography quality.
+  Mood: Premium, trustworthy, clean. Like an Apple product launch image.`,
 
-  // אפשרות 2: האווירה - החלל והסביבה העסקית
-  `${baseVisualRules} 
-  Concept: A wide-angle interior shot of a sophisticated, modern environment related to ${businessDescription}. 
-  Composition: Architectural photography style, natural soft lighting, ${colorsText} highlights, clean and organized atmosphere that implies excellence.`,
-
-  // אפשרות 3: האיכות - תקריב אומנותי על פרטים וטקסטורות
-  `${baseVisualRules} 
-  Concept: Extreme close-up (macro) photography of textures, materials, or intricate details associated with ${businessDescription}. 
-  Composition: Artistic depth of field with beautiful bokeh, focuses on the high-quality essence using ${colorsText} color grading.`
+  // פוסטר 2: דרמטי ואטמוספרי
+  `${baseVisualRules}
+  POSTER DIRECTION: "DRAMATIC LIFESTYLE ATMOSPHERE" — Cinematic wide shot.
+  Concept: A wide environmental scene showing the world where ${businessDescription} operates. Not the product itself, but the feeling around it — the environment, the people who aren't shown, the story.
+  Composition: Wide or panoramic format. Rule of thirds. Deep perspective with strong foreground and background layers.
+  Lighting: Golden hour or dramatic side-lighting. Rich shadows and highlights creating depth and emotion.
+  Mood: Aspirational, emotional, cinematic. Like a high-end brand campaign billboard.`
 ];
 
     const results = [];

@@ -452,6 +452,15 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef, useCallback } from "react";
 
+// הודעות טעינה מתחלפות
+const LOADING_STEPS = [
+  { icon: "🎨", text: "מנתח את זהות המותג..." },
+  { icon: "✏️", text: "מעצב את צורת הלוגו..." },
+  { icon: "🖌️", text: "מייחד את הצבעוניות..." },
+  { icon: "⚡", text: "מגיש לשרת ה-AI..." },
+  { icon: "✨", text: "מלטש פרטים אחרונים..." },
+];
+
 export default function SelectedBrand() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -460,7 +469,9 @@ export default function SelectedBrand() {
   const [logo, setLogo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [loadingStep, setLoadingStep] = useState(0);
   const hasGenerated = useRef(false);
+  const stepTimerRef = useRef(null);
 
   useEffect(() => {
     if (!selectedConcept) {
@@ -487,6 +498,11 @@ export default function SelectedBrand() {
     try {
       setLoading(true);
       setError(false);
+      setLoadingStep(0);
+      // מחלפים הודעת טעינה כל 3 שניות
+      stepTimerRef.current = setInterval(() => {
+        setLoadingStep(prev => (prev + 1) % LOADING_STEPS.length);
+      }, 3000);
       const res = await fetch((process.env.REACT_APP_API_URL || "http://127.0.0.1:5000") + "/api/generate-logo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -502,6 +518,7 @@ export default function SelectedBrand() {
       setError(true);
     } finally {
       setLoading(false);
+      clearInterval(stepTimerRef.current);
     }
   }, [selectedConcept, userInput, loading]);
 
@@ -552,9 +569,35 @@ const getPayload = () => ({
       
       <div className="max-w-md w-full bg-white rounded-3xl shadow-xl p-8 text-center">
         {loading ? (
-          <div className="py-20 text-slate-600">
-            <div className="animate-spin inline-block w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full mb-4"></div>
-            <p className="animate-pulse">מייצר את הלוגו המושלם עבורך...</p>
+          <div className="py-16 flex flex-col items-center gap-4">
+            {/* אנימציה של עיגול מסתובב עם אייקון */}
+            <div className="relative w-20 h-20 mb-2">
+              <div className="absolute inset-0 rounded-full border-4 border-indigo-100"></div>
+              <div className="absolute inset-0 rounded-full border-4 border-t-indigo-500 border-r-transparent border-b-transparent border-l-transparent animate-spin"></div>
+              <div className="absolute inset-0 flex items-center justify-center text-2xl">
+                {LOADING_STEPS[loadingStep].icon}
+              </div>
+            </div>
+
+            {/* הודעה מתחלפת */}
+            <p className="text-slate-700 font-semibold text-base animate-pulse">
+              {LOADING_STEPS[loadingStep].text}
+            </p>
+            <p className="text-slate-400 text-xs">
+              יצירת לוגו AI לוקחת 15-40 שניות
+            </p>
+
+            {/* Progress dots */}
+            <div className="flex gap-1 mt-2">
+              {LOADING_STEPS.map((_, i) => (
+                <div
+                  key={i}
+                  className={`w-2 h-2 rounded-full transition-all duration-500 ${
+                    i === loadingStep ? 'bg-indigo-500 scale-125' : 'bg-slate-200'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         ) : (
           <>

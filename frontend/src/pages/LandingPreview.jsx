@@ -190,6 +190,29 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
 // פונקציות עזר
+function hexToRgb(hex) {
+  const clean = hex.replace('#', '');
+  const full = clean.length === 3
+    ? clean.split('').map(c => c + c).join('')
+    : clean;
+  const r = parseInt(full.substring(0, 2), 16);
+  const g = parseInt(full.substring(2, 4), 16);
+  const b = parseInt(full.substring(4, 6), 16);
+  return { r, g, b };
+}
+
+// מחשבת אם צבע בהיר או כהה ומחזירה צבע ניגוד לטקסט
+function getContrastText(hex) {
+  try {
+    const { r, g, b } = hexToRgb(hex || '#ffffff');
+    // נוסחת luminance לפי WCAG
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance > 0.5 ? '#1a1a1a' : '#ffffff';
+  } catch {
+    return '#1a1a1a';
+  }
+}
+
 function getPalette(d) {
   const palette = d?.colors || d?.color_palette || [];
   const [c1, c2, c3] =
@@ -216,6 +239,10 @@ export default function LandingPreview() {
   if (!d) return <div className="p-20 text-center font-sans text-gray-500">טוען נתונים...</div>;
 
   const { c1, c2, c3 } = getPalette(d);
+  // צבע טקסט אוטומטי לפי ניגוד — מונע טקסט בלתי נראה
+  const bodyTextColor = '#1a1a1a';
+  const headingColor = getContrastText(c2) === '#1a1a1a' ? c2 : c1.toLowerCase() === '#ffffff' || c1.toLowerCase() === '#fff' ? c2 : c1;
+  const btnTextColor = getContrastText(c2);
   const logoSrc = getLogoSrc(d);
   const phone = d.contactInfo?.phone || d.phone || "";
   const email = d.contactInfo?.email || d.email || "";
@@ -234,14 +261,17 @@ export default function LandingPreview() {
         <title>${d.businessName || "דף נחיתה"}</title>
         <style>
           :root { --c1: ${c1}; --c2: ${c2}; --c3: ${c3}; }
-          body { font-family: system-ui, sans-serif; margin: 0; background: #fff; color: var(--c1); text-align: right; line-height: 1.6; }
+          body { font-family: system-ui, sans-serif; margin: 0; background: #fff; color: #1a1a1a; text-align: right; line-height: 1.6; }
           .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
-          header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; border-bottom: 1px solid #eee; color: var(--c2); }
-          .hero { background: linear-gradient(135deg, var(--c2)10, white); padding: 70px 30px; border-radius: 40px; text-align: center; border: 1px solid #f0f0f0; margin-top: 30px; }
-          .btn { display: inline-block; background: var(--c2); color: var(--c1); padding: 18px 45px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.3rem; margin-top: 20px; box-shadow: 0 10px 20px var(--c2)30; }
+          header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; border-bottom: 1px solid #eee; color: ${c2}; }
+          .hero { background: linear-gradient(135deg, ${c2}15, white); padding: 70px 30px; border-radius: 40px; text-align: center; border: 1px solid #f0f0f0; margin-top: 30px; }
+          .hero h1 { color: ${headingColor}; }
+          .hero p { color: #444; }
+          .btn { display: inline-block; background: ${c2}; color: ${btnTextColor}; padding: 18px 45px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.3rem; margin-top: 20px; box-shadow: 0 10px 20px ${c2}40; }
           .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
-          .card { background: var(--c3)10; padding: 30px; border-radius: 25px; border: 1px solid var(--c2)20; color: var(--c1); }
-          .footer { background: var(--c2); color: var(--c1); padding: 40px; border-radius: 30px; margin-top: 50px; text-align: center; }
+          .card { background: ${c3}10; padding: 30px; border-radius: 25px; border: 1px solid ${c2}20; color: #1a1a1a; }
+          .card h2 { color: ${c2}; }
+          .footer { background: ${c2}; color: ${btnTextColor}; padding: 40px; border-radius: 30px; margin-top: 50px; text-align: center; }
         </style>
       </head>
       <body>
@@ -355,30 +385,32 @@ export default function LandingPreview() {
           </div>
         </header>
 
-        <section className="text-center mb-20 py-16 px-6 rounded-[40px]" style={{ background: `${c2}10` }}>
-          <h1 className="text-5xl md:text-6xl font-black mb-6" style={{ color: c1 }}>{d.hero?.title}</h1>
-          <p className="text-2xl mb-10" style={{ color: c3 }}>{d.hero?.subtitle}</p>
-          <button className="px-14 py-5 rounded-full text-2xl font-bold shadow-xl" style={{ backgroundColor: c2, color: c1 }}>
+        <section className="text-center mb-20 py-16 px-6 rounded-[40px]" style={{ background: `${c2}15` }}>
+          <h1 className="text-5xl md:text-6xl font-black mb-6" style={{ color: headingColor }}>{d.hero?.title}</h1>
+          <p className="text-2xl mb-10" style={{ color: bodyTextColor, opacity: 0.75 }}>{d.hero?.subtitle}</p>
+          <button className="px-14 py-5 rounded-full text-2xl font-bold shadow-xl" style={{ backgroundColor: c2, color: btnTextColor }}>
             {d.cta}
           </button>
         </section>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div className="md:col-span-2 space-y-10">
-            <div className="p-10 rounded-[35px] border" style={{ backgroundColor: c3 + "10", borderColor: c2 + "20", color: c1 }}>
+            <div className="p-10 rounded-[35px] border" style={{ backgroundColor: c3 + "10", borderColor: c2 + "30" }}>
               <h2 className="text-2xl font-bold mb-4" style={{ color: c2 }}>על העסק</h2>
-              <p className="text-xl leading-relaxed">{d.about}</p>
+              <p className="text-xl leading-relaxed" style={{ color: bodyTextColor }}>{d.about}</p>
             </div>
-            <div className="p-10 rounded-[35px] border" style={{ backgroundColor: c3 + "10", borderColor: c2 + "20", color: c1 }}>
+            <div className="p-10 rounded-[35px] border" style={{ backgroundColor: c3 + "10", borderColor: c2 + "30" }}>
               <h2 className="text-2xl font-bold mb-4" style={{ color: c2 }}>השירותים שלנו</h2>
               <ul className="space-y-3">
-                {d.services?.map((s, i) => <li key={i} className="text-lg">✓ {s}</li>)}
+                {d.services?.map((s, i) => <li key={i} className="text-lg" style={{ color: bodyTextColor }}>✓ {s}</li>)}
               </ul>
             </div>
           </div>
           <div className="space-y-6">
-            <div className="p-8 rounded-[35px] italic text-xl border-2 text-center" style={{ backgroundColor: c2 + "10", borderColor: c2 + "30", color: c1 }}>
-              "{d.brandStatement}"
+            <div className="p-8 rounded-[35px] italic text-xl border-2 text-center" style={{ backgroundColor: c2 + "15", borderColor: c2 + "40" }}>
+              <span style={{ color: c2 }}>"</span>
+              <span style={{ color: bodyTextColor }}>{d.brandStatement}</span>
+              <span style={{ color: c2 }}>"</span>
             </div>
           </div>
         </div>

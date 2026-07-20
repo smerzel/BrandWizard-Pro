@@ -152,5 +152,7 @@ NOTE: 'strategy', 'reasoning', 'tagline' -> MUST BE IN HEBREW.
     contents: [{ role: 'user', parts: [{ text: prompt }] }],
   });
 
-  return response.text;
+  // ניקוי markdown fences אם Gemini הוסיף ```json ... ```
+  const rawText = response.text || '';
+  return rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
 };
