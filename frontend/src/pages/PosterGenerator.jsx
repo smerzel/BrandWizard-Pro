@@ -1,6 +1,15 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import html2canvas from "html2canvas";
+
+// שלבי הטעינה של ה-AI
+const POSTER_STEPS = [
+  { icon: "📸", title: "מכוון עדשות...", sub: "מכין מצלמה וירטואלית" },
+  { icon: "🎨", title: "מערבב צבעים...", sub: "מושך את צבעי המותג שלך" },
+  { icon: "🪄", title: "יוצר קונספט מינימליסטי...", sub: "פוסטר ראשון בתהליך" },
+  { icon: "🌆", title: "מעצב סצנה אדריכלית...", sub: "פוסטר שני בתהליך" },
+  { icon: "✨", title: "מלטש פרטים...", sub: "זה לוקח טיפה זמן, אנחנו בסוף" },
+];
 
 export default function PosterGenerator() {
   const location = useLocation();
@@ -10,8 +19,22 @@ export default function PosterGenerator() {
 
   const [posters, setPosters] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingStep, setLoadingStep] = useState(0);
   const [error, setError] = useState("");
   const [selectedPosterId, setSelectedPosterId] = useState(null);
+  const stepTimerRef = useRef(null);
+
+  useEffect(() => {
+    if (loading) {
+      setLoadingStep(0);
+      stepTimerRef.current = setInterval(() => {
+        setLoadingStep(prev => Math.min(prev + 1, POSTER_STEPS.length - 1));
+      }, 5000);
+    } else {
+      clearInterval(stepTimerRef.current);
+    }
+    return () => clearInterval(stepTimerRef.current);
+  }, [loading]);
 
   const primaryColor = colors?.[0] || "#6366f1";
 
@@ -77,14 +100,35 @@ export default function PosterGenerator() {
     <>
       {/* LOADING OVERLAY */}
       {loading && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center">
-          <div className="bg-white rounded-[2.5rem] p-14 shadow-2xl text-center max-w-md w-full">
-            <div className="w-20 h-20 mx-auto mb-6 rounded-full border-4 border-slate-200 border-t-slate-900 animate-spin" />
-            <h2 className="text-2xl font-black mb-2">
-              יוצרים את הקמפיין שלך
+        <div className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center px-4" dir="rtl">
+          <div className="bg-white rounded-[2.5rem] p-10 md:p-14 shadow-2xl text-center max-w-md w-full">
+            
+            {/* אייקון אנימטיבי */}
+            <div className="relative w-24 h-24 mx-auto mb-8">
+              <div className="absolute inset-0 rounded-full border-4 border-slate-100"></div>
+              <div className="absolute inset-0 rounded-full border-4 border-t-indigo-500 border-r-transparent border-b-transparent border-l-transparent animate-spin"></div>
+              <div className="absolute inset-0 flex items-center justify-center text-4xl">
+                {POSTER_STEPS[loadingStep].icon}
+              </div>
+            </div>
+
+            <h2 className="text-2xl font-black mb-2 text-slate-800">
+              {POSTER_STEPS[loadingStep].title}
             </h2>
-            <p className="text-slate-600">
-              ה-AI מעצב פוסטרים בהתאמה למותג שלך
+            <p className="text-slate-500 mb-8 font-medium">
+              {POSTER_STEPS[loadingStep].sub}
+            </p>
+
+            {/* Progress bar */}
+            <div className="w-full bg-slate-100 rounded-full h-1.5 mb-6">
+              <div
+                className="bg-indigo-500 h-1.5 rounded-full transition-all duration-1000"
+                style={{ width: `${((loadingStep + 1) / POSTER_STEPS.length) * 100}%` }}
+              />
+            </div>
+
+            <p className="text-slate-400 text-sm">
+              יצירת תמונות ברזולוציה גבוהה לוקחת כ-30 עד 40 שניות
             </p>
           </div>
         </div>
