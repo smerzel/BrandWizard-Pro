@@ -199,30 +199,26 @@ export const createPosters = async (brandingData) => {
 // - Clean, professional composition that appeals to the target audience.
 // - The final output must be high-resolution and advertising-ready.
 // `.trim();
-const baseVisualRules = `High-end commercial advertisement photography for a business named "${businessName}". 
-Style: ${visualStyle}, ${extendedStyle}. 
-Color Palette: ${colorsText}. 
-Mood: Professional, premium, and clean. 
-Technical: 8k resolution, photorealistic, cinematic lighting, sharp focus. 
-Important: This is a background atmosphere image. Do NOT draw a single isolated object in the center like a logo. Create a full scene or environment with negative space. 
+const baseVisualRules = `High-end commercial advertisement photography for a business field: "${businessDescription}".
+Style: ${visualStyle}, ${extendedStyle}.
+Color Palette: ${colorsText}.
+Technical: 8k resolution, photorealistic, cinematic lighting, sharp focus.
 Strictly NO text, NO logos, NO letters, and NO people.`.trim();
 
 const styles = [
   // פוסטר 1: תקריב מאקרו אבסטרקטי / סטודיו
   `${baseVisualRules}
-  POSTER 1 DIRECTION: "MACRO STUDIO MINIMALISM".
-  Concept: Extreme close-up (macro photography) of a single iconic tool, material, or object representing ${businessDescription}.
-  Composition: The object is isolated on a clean, solid ${colorsText} studio backdrop. No environment, no background clutter, no rooms. Pure minimalism.
-  Lighting: High-end studio rim lighting.
-  Mood: Abstract, premium, hyper-focused.`,
+  POSTER 1 INSTRUCTION: "MACRO STUDIO MINIMALISM".
+  This must be an extreme close-up (macro photography) of a SINGLE iconic object or material representing the business. 
+  CRITICAL: Do NOT draw a room, environment, or background. The object MUST be isolated on a clean, solid color studio backdrop. Pure minimalism.
+  Lighting: High-end studio rim lighting.`,
 
   // פוסטר 2: סצנה רחבה עם אינטראקציה או תנועה
   `${baseVisualRules}
-  POSTER 2 DIRECTION: "WIDE CINEMATIC LIFESTYLE".
-  Concept: A wide-angle, bustling environment or architectural space related to ${businessDescription}. 
-  Composition: Show the whole room or landscape. Deep perspective. Use ${colorsText} as subtle accent lights or interior design elements, not solid backgrounds.
-  Lighting: Natural sunlight streaming in, dynamic shadows.
-  Mood: Alive, energetic, immersive.`
+  POSTER 2 INSTRUCTION: "WIDE CINEMATIC LIFESTYLE".
+  This must be a wide-angle, bustling environment or architectural space related to the business.
+  CRITICAL: Do NOT draw a single isolated object. Show the whole room or landscape with deep perspective. This is a background atmosphere image with negative space.
+  Lighting: Natural sunlight streaming in, dynamic shadows.`
 ];
 
     const results = [];
