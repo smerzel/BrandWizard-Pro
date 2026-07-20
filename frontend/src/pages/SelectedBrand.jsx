@@ -501,7 +501,7 @@ export default function SelectedBrand() {
       setLoadingStep(0);
       // מחלפים הודעת טעינה כל 3 שניות
       stepTimerRef.current = setInterval(() => {
-        setLoadingStep(prev => (prev + 1) % LOADING_STEPS.length);
+        setLoadingStep(prev => Math.min(prev + 1, LOADING_STEPS.length - 1));
       }, 3000);
       const res = await fetch((process.env.REACT_APP_API_URL || "http://127.0.0.1:5000") + "/api/generate-logo", {
         method: "POST",
