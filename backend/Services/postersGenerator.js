@@ -206,12 +206,12 @@ Technical: 8k resolution, photorealistic, cinematic lighting, sharp focus.
 Strictly NO text, NO logos, NO letters, and NO people.`.trim();
 
 const styles = [
-  // פוסטר 1: תקריב מאקרו אבסטרקטי / סטודיו
+  // פוסטר 1: מאקרו טקסטורה ואווירה (Abstract / Material)
   `${baseVisualRules}
-  POSTER 1 INSTRUCTION: "MACRO STUDIO MINIMALISM".
-  This must be an extreme close-up (macro photography) of a SINGLE iconic object or material representing the business. 
-  CRITICAL: Do NOT draw a room, environment, or background. The object MUST be isolated on a clean, solid color studio backdrop. Pure minimalism.
-  Lighting: High-end studio rim lighting.`,
+  POSTER 1 INSTRUCTION: "ABSTRACT MACRO TEXTURE".
+  This must be an extreme close-up (macro photography) of a specific material, texture, or element representing the business (e.g., coffee beans, wood grain, digital glowing lines, woven fabric).
+  CRITICAL: Do NOT draw a room or an entire object. Focus entirely on the abstract texture, surface, or elemental details. Use shallow depth of field (bokeh).
+  Lighting: Dramatic, high-contrast, moody.`,
 
   // פוסטר 2: סצנה רחבה עם אינטראקציה או תנועה
   `${baseVisualRules}
